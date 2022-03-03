@@ -18,7 +18,7 @@ export default class MyAccount extends Component {
       lastname: "",
       //email: "",
       //mobile: "",
-      //password: "",
+
       address: "",
       locality: "",
       pincode: "",
@@ -42,11 +42,6 @@ export default class MyAccount extends Component {
           lastname: response.data.data.lastname,
           email: response.data.data.email,
           mobile: response.data.data.mobile,
-          // address: response.data.data.address,
-          // locality: response.data.data.locality,
-          // pincode: response.data.data.pincode,
-          // city: response.data.data.city,
-          // state: response.data.data.state,
         });
         // this.state
         console.log(this.state);
@@ -80,7 +75,7 @@ export default class MyAccount extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    let { id } = this.props.match.params;
+    //let { id } = this.props.match.params;
     axios
       .post(`http://35.154.86.59/api/user/editcustomer`, this.state, {
         headers: {
@@ -112,12 +107,6 @@ export default class MyAccount extends Component {
       });
   };
 
-  submitHandler = (e) => {
-    console.log(e);
-  };
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -212,66 +201,6 @@ export default class MyAccount extends Component {
                                   />
                                 </div>
                               </div>
-                              {/* <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>Address</label>
-                                      <input
-                                        type="textarea"
-                                        placeholder="Address"
-                                        name="address"
-                                        value={this.state.address}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>Locality</label>
-                                      <input
-                                        type="text"
-                                        placeholder="Locality"
-                                        name="locality"
-                                        value={this.state.locality}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>Pin Code</label>
-                                      <input
-                                        type="number"
-                                        placeholder="Pin Code"
-                                        name="pincode"
-                                        value={this.state.pincode}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>City</label>
-                                      <input
-                                        type="text"
-                                        placeholder="city"
-                                        name="city"
-                                        value={this.state.city}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>State</label>
-                                      <input
-                                        type="text"
-                                        placeholder="State"
-                                        name="state"
-                                        value={this.state.state}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div> */}
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
@@ -291,55 +220,6 @@ export default class MyAccount extends Component {
                               <h4>My Address</h4>
                             </div>
                             <div className="row">
-                              {/* <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>First Name</label>
-                                      <input
-                                        type="text"
-                                        placeholder="First Name"
-                                        name="firstname"
-                                        value={this.state.firstname}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>Last Name</label>
-                                      <input
-                                        type="text"
-                                        placeholder="Last Name"
-                                        name="lastname"
-                                        value={this.state.lastname}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>Email Address</label>
-                                      <input
-                                        disabled
-                                        type="email"
-                                        placeholder="Customer Email"
-                                        name="email"
-                                        value={this.state.email}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6">
-                                    <div className="billing-info">
-                                      <label>Mobile Number</label>
-                                      <input
-                                        disabled
-                                        type="number"
-                                        name="mobile"
-                                        value={this.state.mobile}
-                                        onChange={this.changeHandler}
-                                      />
-                                    </div>
-                                  </div> */}
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Address</label>
@@ -429,88 +309,6 @@ export default class MyAccount extends Component {
                       </Card.Body>
                       {/* </Accordion.Collapse> */}
                     </Card>
-
-                    {/* <Card className="single-my-account mb-20">
-                      <Card.Header className="panel-heading">
-                        <Accordion.Toggle variant="link" eventKey="1">
-                          <h3 className="panel-title">
-                            <span>2 .</span> Change your password
-                          </h3>
-                        </Accordion.Toggle>
-                      </Card.Header>
-                      <Accordion.Collapse eventKey="1">
-                        <Card.Body>
-                          <div className="myaccount-info-wrapper">
-                            <div className="account-info-wrapper">
-                              <h4>Change Password</h4>
-                              <h5>Your Password</h5>
-                            </div>
-                            <div className="row">
-                              <div className="col-lg-12 col-md-12">
-                                <div className="billing-info">
-                                  <label>Password</label>
-                                  <input type="password" />
-                                </div>
-                              </div>
-                              <div className="col-lg-12 col-md-12">
-                                <div className="billing-info">
-                                  <label>Password Confirm</label>
-                                  <input type="password" />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="billing-back-btn">
-                              <div className="billing-btn">
-                                <button type="submit">Continue</button>
-                              </div>
-                            </div>
-                          </div>
-                        </Card.Body>
-                      </Accordion.Collapse>
-                    </Card> */}
-                    {/* <Card className="single-my-account mb-20">
-                        <Card.Header className="panel-heading">
-                          <Accordion.Toggle variant="link" eventKey="2">
-                            <h3 className="panel-title">
-                              <span>3 .</span> Modify your address book entries{" "}
-                            </h3>
-                          </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="2">
-                          <Card.Body>
-                            <div className="myaccount-info-wrapper">
-                              <div className="account-info-wrapper">
-                                <h4>Address Book Entries</h4>
-                              </div>
-                              <div className="entries-wrapper">
-                                <div className="row">
-                                  <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                    <div className="entries-info text-center">
-                                      <p>John Doe</p>
-                                      <p>Paul Park </p>
-                                      <p>Lorem ipsum dolor set amet</p>
-                                      <p>NYC</p>
-                                      <p>New York</p>
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                    <div className="entries-edit-delete text-center">
-                                      <button className="edit">Edit</button>
-                                      <button>Delete</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="billing-back-btn">
-                                <div className="billing-btn">
-                                  <button type="submit">Continue</button>
-                                </div>
-                              </div>
-                            </div>
-                          </Card.Body>
-                        </Accordion.Collapse>
-                      </Card> */}
-                    {/* </Accordion> */}
                   </div>
                 </div>
               </div>

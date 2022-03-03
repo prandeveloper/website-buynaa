@@ -36,12 +36,13 @@ export default class LoginRegister extends Component {
     console.log(this.state);
     axios
       .post("http://35.154.86.59/api/user/verifyotp", {
-        customer_email: this.state.email,
+        mobile: this.state.mobile,
+        //customer_email: this.state.email,
         otp: this.state.otpnumber,
       })
       .then((response) => {
         console.log(response);
-        localStorage.setItem("user", response.data.data._id);
+        //localStorage.setItem("user", response.data.data._id);
         localStorage.setItem("auth-token", this.state.token);
         // const location = this.props.location;
         // if (location.state && location.state.nextPathname) {
@@ -114,7 +115,8 @@ export default class LoginRegister extends Component {
 
     axios
       .post("http://35.154.86.59/api/user/sendotp", {
-        customer_email: this.state.email,
+        mobile: this.state.mobile,
+        //customer_email: this.state.email,
       })
       .then((response) => {
         console.log(response);

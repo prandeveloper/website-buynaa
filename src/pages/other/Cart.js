@@ -7,7 +7,7 @@ import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
-import { Form } from "reactstrap";
+import { Form, Input, Button } from "reactstrap";
 import { getDiscountPrice } from "../../helpers/product";
 import {
   addToCart,
@@ -164,6 +164,7 @@ const Cart = ({
             name,
             email,
             contact,
+            payment_id: res.payment_id,
           };
           console.log("gaurav", res);
           Axios.post("http://35.154.86.59/api/admin/addordersample", data, {
@@ -235,6 +236,7 @@ const Cart = ({
                             <th>Product Name</th>
                             <th>Unit Price</th>
                             <th>Qty</th>
+                            <th>Coupon</th>
                             <th>Subtotal</th>
                             <th>action</th>
                           </tr>
@@ -264,14 +266,14 @@ const Cart = ({
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product-sticky/" +
-                                      cartItem.product._id
+                                      cartItem.product?._id
                                     }
                                   >
                                     <img
                                       className="img-fluid"
                                       src={
                                         process.env.PUBLIC_URL +
-                                        cartItem.product.product_img[0]
+                                        cartItem.product?.product_img[0]
                                       }
                                       alt=""
                                     />
@@ -283,10 +285,10 @@ const Cart = ({
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product-sticky/" +
-                                      cartItem.product._id
+                                      cartItem.product?._id
                                     }
                                   >
-                                    {cartItem.product.product_name}
+                                    {cartItem.product?.product_name}
                                   </Link>
                                   {cartItem.size || cartItem.color ? (
                                     <div className="cart-item-variation">
@@ -306,43 +308,20 @@ const Cart = ({
 
                                 <td className="product-quantity">
                                   <div className="cart-plus-minus">
-                                    {/* <button
-                                      className="dec qtybutton"
-                                      onClick={() =>
-                                        decreaseQuantity(cartItem, addToast)
-                                      }
-                                    >
-                                      -
-                                    </button> */}
-                                    {/* <input
-                                      className="cart-plus-minus-box"
-                                      type="text"
-                                      value={cartItem.quantity}
-                                      readOnly
-                                    /> */}
                                     <span>{cartItem.product_qty}</span>
-                                    {/* <button
-                                      className="inc qtybutton"
-                                      onClick={() =>
-                                        addToCart(
-                                          cartItem,
-                                          addToast,
-                                          quantityCount
-                                        )
-                                      }
-                                      disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity &&
-                                        cartItem.quantity >=
-                                          cartItemStock(
-                                            cartItem,
-                                            cartItem.selectedProductColor,
-                                            cartItem.selectedProductSize
-                                          )
-                                      }
-                                    >
-                                      +
-                                    </button> */}
+                                  </div>
+                                </td>
+                                <td className="product-quantity">
+                                  <div className="cart-plus-minus">
+                                    <span>
+                                      <Input
+                                        type="text"
+                                        placeholder="Enter Code"
+                                      />
+                                      <Button color="primary" className="">
+                                        Apply
+                                      </Button>
+                                    </span>
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
@@ -354,7 +333,7 @@ const Cart = ({
                                 <td className="product-remove">
                                   <button
                                     onClick={() =>
-                                      removeItemfromcart(cartItem.product._id)(
+                                      removeItemfromcart(cartItem.product?._id)(
                                         window.location.reload()
                                       )
                                     }
@@ -411,9 +390,9 @@ const Cart = ({
                               {useraddress?.customer?.firstname}{" "}
                               {useraddress?.customer?.lastname}
                             </span>
-                            ,<br />#{useraddress?.address},
-                            {useraddress?.locality},{useraddress?.state},
-                            {useraddress?.pincode}
+                            ,<br />
+                            {useraddress?.address},{useraddress?.locality},
+                            {useraddress?.state},{useraddress?.pincode}
                           </h5>
                           <button
                             className="cart-btn-2"

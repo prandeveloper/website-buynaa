@@ -52,13 +52,19 @@ const ProductImageDescriptionSticky = ({
   const [quantityCount, setQuantityCount] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [rating, allRating] = useState([false, false, false, false, false]);
-  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState(0);
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
   const [activeindex, setActiveindex] = React.useState([0]);
   React.useEffect(() => {
     var t = JSON.parse(productImage).product_img;
+    var t1 = JSON.parse(productImage).color;
+    var t2 = JSON.parse(productImage).size;
     if (t !== undefined && t !== null) setImgArr(t);
+    if (t1 !== undefined && t1 !== null) setSelectedColor(t1[0].colorName);
+    if (t2 !== undefined && t2 !== null) setSelectedSize(t2[0].sizeName);
+    console.log(t1);
+    console.log(t2);
     setstate(JSON.parse(productImage));
   }, [productImage]);
 
@@ -192,79 +198,34 @@ const ProductImageDescriptionSticky = ({
                     className="pro-details-color-content"
                     style={{ flexDirection: "row" }}
                   >
-                    {/* <ButtonGroup style={{ height: 33 }}>
-                      {state
-                        ? state.color
-                          ? state.color.map((clr, i) => (
-                              <Button
-                                className={
-                                  i === state.activeIndex ? "active m-1" : "m-1"
-                                }
-                                style={{
-                                  backgroundColor: clr.colorName,
-                                  borderRadius: 15,
-                                }}
-                                key={clr.colorName}
-                                onClick={() => {
-                                  setActiveindex(i);
-                                  setSelectedColor(clr.colorName);
-                                }}
-                              >
-                              </Button>
-                            ))
-                          : null
-                        : null}
-                    </ButtonGroup> */}
-                    {/* <h1>Radio Color Picker</h1> */}
-                    {/* {state?.color?.map((clr, i) => (
-                      <>
-                        <input
-                          style={{ display: "inline-block" }}
-                          key={clr.colorName}
-                          type="radio"
-                          name="color"
-                          onClick={() => {
-                            setActiveindex(i);
-                            setSelectedColor(clr.colorName);
-                          }}
-                        />
-                        <label for="red">
-                          <span
-                            style={{ backgroundColor: clr.colorName }}
-                          ></span>
-                        </label>
-                      </>
-                    ))} */}
-
                     <div class="colors">
                       <ul>
-                        {/* <li>
-                          <label>
-                            <input type="radio" name="color" checked />
-                            <span
-                              class="swatch"
-                              style={{
-                                backgroundColor: state?.color?.[0].colorName
-                              }}
-                            ></span>{" "}
-                          </label>
-                        </li> */}
                         {state?.color?.map((clr, i) => (
                           <li>
                             <label>
                               <input
                                 type="radio"
                                 name="color"
-                                checked={i == 0 ? true : false}
+                                checked={
+                                  clr?.colorName == selectedColor ? true : false
+                                }
                                 onClick={() => {
                                   setActiveindex(i);
-                                  console.log(clr.colorName);
-                                  setSelectedColor(clr.colorName);
+                                  console.log(clr?.colorName);
+                                  setSelectedColor(clr?.colorName);
                                 }}
                               />
                               <span
                                 class="swatch"
-                                style={{ backgroundColor: clr.colorName }}
+                                style={{
+                                  backgroundColor: clr?.colorName,
+                                  borderColor:
+                                    clr?.colorName == selectedColor
+                                      ? "black"
+                                      : "transparent",
+                                  borderWidth: 2,
+                                  padding: 2,
+                                }}
                               ></span>{" "}
                             </label>
                           </li>
@@ -286,23 +247,19 @@ const ProductImageDescriptionSticky = ({
                       ? state.size
                         ? state.size.map((siz) => (
                             <Button
-                              outline
-                              color="primary"
+                              outline={selectedSize === siz?.sizeName}
+                              color={
+                                selectedSize === siz?.sizeName
+                                  ? "danger"
+                                  : "primary"
+                              }
                               className="m-1 "
-                              key={siz.sizeName}
+                              key={siz?.sizeName}
                               onClick={() => {
-                                setSelectedSize(siz.sizeName);
+                                setSelectedSize(siz?.sizeName);
                               }}
                             >
-                              <h5
-                                className="mb-0"
-                                style={{
-                                  backgroundColor:
-                                    selectedSize === siz.sizeName,
-                                }}
-                              >
-                                {siz.sizeName}
-                              </h5>
+                              <h5 className="mb-0">{siz?.sizeName}</h5>
                             </Button>
                           ))
                         : null

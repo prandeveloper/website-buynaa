@@ -117,7 +117,13 @@ const IconGroup = ({
                   </Link>
                 </li>
                 <li>
-                  <Link to="#">Logout</Link>
+                  <Link
+                    onClick={(e) =>
+                      window.localStorage.removeItem("auth-token")
+                    }
+                  >
+                    Logout
+                  </Link>
                 </li>
               </>
             )}

@@ -80,12 +80,13 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                 <li className="single-shopping-cart" key={key}>
                   <div className="shopping-cart-img">
                     <Link
-                      to={`${process.env.PUBLIC_URL}/product-sticky/${single.product._id}`}
+                      to={`${process.env.PUBLIC_URL}/product-sticky/${single.product?._id}`}
                     >
                       <img
                         alt=""
                         src={
-                          process.env.PUBLIC_URL + single.product.product_img[0]
+                          process.env.PUBLIC_URL +
+                          single.product?.product_img[0]
                         }
                         className="img-fluid"
                       />
@@ -97,11 +98,11 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                         to={
                           process.env.PUBLIC_URL +
                           "/product-sticky/" +
-                          single.product._id
+                          single.product?._id
                         }
                       >
                         {" "}
-                        {single.product.product_name}
+                        {single.product?.product_name}
                       </Link>
                     </h4>
                     <h6>Qty: {single.product_qty}</h6>
@@ -112,7 +113,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                   </div>
                   <div className="shopping-cart-delete">
                     <button
-                      onClick={() => removeItemfromcart(single.product._id)}
+                      onClick={() => removeItemfromcart(single.product?._id)}
                     >
                       <i className="fa fa-times-circle" />
                     </button>

@@ -117,13 +117,8 @@ export class ProductSlider extends Component {
                 <div>
                   <Carousel className="">
                     {this.state.strDetail.storeImg?.map((i) => (
-                      <Carousel.Item>
-                        <img
-                          src={i}
-                          alt=""
-                          className=""
-                          
-                        />
+                      <Carousel.Item style={{ width: "100%", height: "90vh" }}>
+                        <img src={i} alt="" className="w-100 h-100" />
                       </Carousel.Item>
                     ))}
                   </Carousel>
