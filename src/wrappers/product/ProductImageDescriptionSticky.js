@@ -331,6 +331,7 @@ const ProductImageDescriptionSticky = ({
                             //pahucha dena
                           })
                           .catch(function (error) {
+                            alert("error by pratima");
                             console.log(error.response);
                           });
                       } else {

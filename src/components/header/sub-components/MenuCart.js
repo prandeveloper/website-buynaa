@@ -42,9 +42,11 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
       }
     );
     const carts = data.data;
-    const sum = data.total;
-    setTotal(sum);
-    //console.log(sum)
+    console.log(carts);
+    // const sum = carts?.single?.gsttotal;
+
+    // setTotal(sum);
+    // console.log(sum);
 
     setCarts(carts);
     console.log(carts);
@@ -73,8 +75,8 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
               ).toFixed(2);
 
               discountedPrice != null
-                ? (cartTotalPrice += finalDiscountedPrice * single.quantity)
-                : (cartTotalPrice += finalProductPrice * single.quantity);
+                ? (cartTotalPrice += parseInt(single.gsttotal))
+                : (cartTotalPrice += parseInt(single.gsttotal));
 
               return (
                 <li className="single-shopping-cart" key={key}>
@@ -108,7 +110,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                     <h6>Qty: {single.product_qty}</h6>
                     <h6>Color: {single.color}</h6>
                     <h6>Size: {single.size}</h6>
-                    <h6>Price: {single.product_price * single.product_qty}</h6>
+                    <h6>Price: {single.gsttotal}</h6>
                     <span></span>
                   </div>
                   <div className="shopping-cart-delete">
@@ -124,10 +126,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
           </ul>
           <div className="shopping-cart-total">
             <h4>
-              Total :
-              <span className="shop-total">
-                {currency.currencySymbol + total.toFixed(2)}
-              </span>
+              Total :<span className="shop-total">₹ {cartTotalPrice}</span>
             </h4>
           </div>
           <div className="shopping-cart-btn btn-hover text-center">

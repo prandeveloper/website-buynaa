@@ -22,8 +22,6 @@ const ProductDescriptionTab = ({
 
   console.log(productid);
   const fetchReview = async (productid) => {
-    //http://35.154.86.59/api/admin/getonereviewproduct/61dbf6b0ee74df56dae2627c
-    //let k = JSON.parse(productFullDesc)._id
     console.log(productid);
     const { data } = await Axios.get(
       `http://35.154.86.59/api/admin/getonereviewproduct/${productid}`
@@ -44,8 +42,6 @@ const ProductDescriptionTab = ({
   };
 
   const changehandler = (e) => {
-    // console.log(e.target.value)
-    //e.target.value = setComment()
     setComment(e.target.value);
   };
 
@@ -227,25 +223,6 @@ const ProductDescriptionTab = ({
                               </div>
                             </div>
                             <div className="review-bottom">
-                              {/* {rating.map((val, index) => (
-                    <span
-                      key={index}
-                      onClick={() => {
-                        var rat = [];
-                        for (var i = 0; i < 5; i++) {
-                          if (i <= index) rat.push(true);
-                          else rat.push(false);
-                        }
-                        allRating(rat);
-                      }}
-                    >
-                      {rating[index] ? (
-                        <i className="fa fa-star-o yellow" key={index}></i>
-                      ) : (
-                        <i className="fa fa-star-o" key={index}></i>
-                      )}
-                    </span>
-                  ))} */}
                               <p
                                 style={{
                                   display: "inline",
@@ -289,11 +266,6 @@ const ProductDescriptionTab = ({
                               />
                             </div>
 
-                            {/* <div className="col-md-6">
-                              <div className="rating-form-style mb-10">
-                                <input placeholder="Email" type="email" />
-                              </div>
-                            </div> */}
                             <div className="col-md-12">
                               <div className="rating-form-style form-submit">
                                 <textarea

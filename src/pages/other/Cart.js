@@ -35,7 +35,9 @@ const Cart = ({
   const history = useHistory();
   const { pathname } = location;
   let cartTotalPrice = 0;
+  let gstTotalPrice = 0;
   const [carts, setCarts] = useState([]);
+  const [cartId, setCartId] = useState([]);
   const [total, setTotal] = useState([]);
   const [useraddress, setUseraddress] = useState([]);
   //const { id } = useParams();
@@ -50,7 +52,13 @@ const Cart = ({
       }
     );
     const carts = data.data;
-    // console.log(data.total);
+    console.log(carts);
+    var cartId = [];
+    for (var i = 0; i < carts.length; i++) {
+      cartId.push(carts[i]._id);
+    }
+    setCartId(cartId);
+    console.log(cartId);
     setCarts(carts);
     console.log(carts);
 
@@ -123,9 +131,22 @@ const Cart = ({
   const [key, setKey] = useState("rzp_live_dX052iXb0Is1yu");
   const Razorpay = useRazorpay();
   const [orderId, setOrderId] = useState("");
+  const [user, setUser] = useState("");
   useEffect(() => {
     console.log("useEffect");
-    Axios.get(`http://35.154.86.59/api/admin/rapay/${total}`)
+    Axios.get("http://35.154.86.59/api/user/getonecustomer", {
+      headers: {
+        "auth-token": localStorage.getItem("auth-token"),
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        setUser(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    Axios.get(`http://35.154.86.59/api/admin/rapay/${cartTotalPrice}`)
       .then((response) => {
         console.log(response.data);
         setOrderId(response.data?.order.id);
@@ -142,10 +163,12 @@ const Cart = ({
       name,
       email,
       contact,
-      sub_plan,
-      status,
-      duration
+
+      payment_type
     ) => {
+      if (payment_type == "COD") {
+        return;
+      }
       const RazorpayOptions = {
         key: key,
         amount: amount,
@@ -155,18 +178,14 @@ const Cart = ({
         //order_id: "1234567890",
         handler: (res) => {
           var data = {
-            duration,
-            sub_plan,
-            status,
-            sortorder: "",
-            amount,
-            description,
-            name,
-            email,
-            contact,
+            cart: cartId,
+            payment_type,
+            status: "Pending",
+            shipping_address: useraddress._id,
+
             payment_id: res.payment_id,
           };
-          console.log("gaurav", res);
+          console.log(res);
           Axios.post("http://35.154.86.59/api/admin/addordersample", data, {
             headers: {
               "auth-token": localStorage.getItem("auth-token"),
@@ -175,7 +194,7 @@ const Cart = ({
             .then((response) => {
               console.log("pranay", response);
 
-              history.push("/cart");
+              //history.push("/cart");
             })
             .catch((error) => {
               console.log(error.response);
@@ -236,13 +255,15 @@ const Cart = ({
                             <th>Product Name</th>
                             <th>Unit Price</th>
                             <th>Qty</th>
+                            <th>GST</th>
                             <th>Coupon</th>
-                            <th>Subtotal</th>
+                            <th>Subtotal(Incl Tax)</th>
                             <th>action</th>
                           </tr>
                         </thead>
                         <tbody>
                           {carts?.map((cartItem, key) => {
+                            cartTotalPrice += parseInt(cartItem.gsttotal);
                             const discountedPrice = getDiscountPrice(
                               cartItem.price,
                               cartItem.discount
@@ -255,10 +276,18 @@ const Cart = ({
                             ).toFixed(2);
 
                             discountedPrice != null
-                              ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
-                              : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
+                              ? (gstTotalPrice +=
+                                  cartItem.product?.gstrate?.value *
+                                  cartItem.product_qty)
+                              : (gstTotalPrice +=
+                                  cartItem.product?.gstrate?.value *
+                                  cartItem.product_qty);
+
+                            {
+                              /* discountedPrice != null
+                              ? (cartTotalPrice = cartItem.gsttotal)
+                              : (cartTotalPrice = cartItem.gsttotal); */
+                            }
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -314,20 +343,27 @@ const Cart = ({
                                 <td className="product-quantity">
                                   <div className="cart-plus-minus">
                                     <span>
-                                      <Input
-                                        type="text"
-                                        placeholder="Enter Code"
-                                      />
-                                      <Button color="primary" className="">
-                                        Apply
-                                      </Button>
+                                      {cartItem.product?.gstrate?.value}
                                     </span>
                                   </div>
                                 </td>
+                                <td className="product-quantity">
+                                  <div className="cart-plus-minus">
+                                    <Form>
+                                      <span>
+                                        <Input
+                                          type="text"
+                                          placeholder="Enter Code"
+                                        />
+                                        <Button color="primary" className="">
+                                          Apply
+                                        </Button>
+                                      </span>
+                                    </Form>
+                                  </div>
+                                </td>
                                 <td className="product-subtotal">
-                                  ₹
-                                  {cartItem?.product_qty *
-                                    cartItem?.product_price}
+                                  ₹{cartItem?.gsttotal}
                                 </td>
 
                                 <td className="product-remove">
@@ -373,7 +409,7 @@ const Cart = ({
                 </div>
 
                 <div className="row">
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-lg-8 col-md-6">
                     <div className="cart-tax">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
@@ -385,15 +421,15 @@ const Cart = ({
                           {useraddress?.customer?.firstname} {useraddress?.customer?.lastname},{useraddress?.address},{useraddress?.locality},{useraddress?.state},{useraddress?.pincode},
                         </h5> */}
                         <div className="tax-select-wrapper">
-                          <h5>
-                            <span style={{ textTransform: "capitalize" }}>
+                          <h4>
+                            <span style={{ textTransform: "capitalize mb-2" }}>
                               {useraddress?.customer?.firstname}{" "}
-                              {useraddress?.customer?.lastname}
+                              {useraddress?.customer?.lastname},
                             </span>
-                            ,<br />
+                            <br />
                             {useraddress?.address},{useraddress?.locality},
                             {useraddress?.state},{useraddress?.pincode}
-                          </h5>
+                          </h4>
                           <button
                             className="cart-btn-2"
                             type="button"
@@ -406,25 +442,6 @@ const Cart = ({
                     </div>
                   </div>
 
-                  <div className="col-lg-4 col-md-6">
-                    <div className="discount-code-wrapper">
-                      <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
-                        </h4>
-                      </div>
-                      <div className="discount-code">
-                        <p>Enter your coupon code if you have one.</p>
-                        <form>
-                          <input type="text" required name="name" />
-                          <button className="cart-btn-2" type="submit">
-                            Apply Coupon
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-
                   <div className="col-lg-4 col-md-12">
                     <div className="grand-totall">
                       <div className="title-wrap">
@@ -432,24 +449,26 @@ const Cart = ({
                           Cart Total
                         </h4>
                       </div>
-                      <h5>
-                        Total products <span>₹{total}</span>
-                      </h5>
-
-                      <h4 className="grand-totall-title">
-                        Grand Total <span>₹{total}</span>
-                      </h4>
+                      <div>
+                        <h5>
+                          Total products <span>₹{total}</span>
+                        </h5>
+                        <h4 className="grand-totall-title">
+                          Total GST<span>₹{gstTotalPrice}</span>
+                        </h4>
+                        <h4 className="grand-totall-title">
+                          Grand Total <span>₹{cartTotalPrice}</span>
+                        </h4>
+                      </div>
                       <Link
                         onClick={() =>
                           handlePayment(
-                            total * 100,
+                            cartTotalPrice * 100,
                             "checkout",
-                            "Pranay Kumar",
-                            "P.kumar@gmail.com",
-                            "9876543210",
-                            total * 100,
-                            true,
-                            ""
+                            user.firstname + " " + user.lastname,
+                            user.email,
+                            user.mobile,
+                            "ONLINE"
                           )
                         }
                       >
