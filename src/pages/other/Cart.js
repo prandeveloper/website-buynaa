@@ -19,6 +19,7 @@ import {
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Axios from "axios";
+import { CloudLightning } from "react-feather";
 
 const Cart = ({
   props,
@@ -36,11 +37,31 @@ const Cart = ({
   const { pathname } = location;
   let cartTotalPrice = 0;
   let gstTotalPrice = 0;
+  const [offer_code, setOffer_code] = useState([]);
+  const [couAmount, setCouAmount] = useState([]);
+  const [totalCouAmt, setTotalCouAmt] = useState(0);
+  const [code, setCode] = useState({});
   const [carts, setCarts] = useState([]);
   const [cartId, setCartId] = useState([]);
   const [total, setTotal] = useState([]);
   const [useraddress, setUseraddress] = useState([]);
   //const { id } = useParams();
+
+  // const submitcoupon = (e) => {
+  //   e.preventDefault();
+
+  //   Axios.get(
+  //     `http://35.154.86.59/api/admin/verifyvalidategetdiscount/${offer_code}`
+  //   )
+  //     .then((response) => {
+  //       const code = response.data;
+  //       setCode(code);
+  //       console.log(code);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //     });
+  // };
 
   const fetchcarts = async () => {
     const { data } = await Axios.get(
@@ -263,6 +284,7 @@ const Cart = ({
                         </thead>
                         <tbody>
                           {carts?.map((cartItem, key) => {
+                            //console.log(key);
                             cartTotalPrice += parseInt(cartItem.gsttotal);
                             const discountedPrice = getDiscountPrice(
                               cartItem.price,
@@ -283,11 +305,6 @@ const Cart = ({
                                   cartItem.product?.gstrate?.value *
                                   cartItem.product_qty);
 
-                            {
-                              /* discountedPrice != null
-                              ? (cartTotalPrice = cartItem.gsttotal)
-                              : (cartTotalPrice = cartItem.gsttotal); */
-                            }
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -308,7 +325,6 @@ const Cart = ({
                                     />
                                   </Link>
                                 </td>
-
                                 <td className="product-name">
                                   <Link
                                     to={
@@ -328,13 +344,11 @@ const Cart = ({
                                     ""
                                   )}
                                 </td>
-
                                 <td className="product-price-cart">
                                   <span className="amount">
                                     {cartItem?.product_price}
                                   </span>
                                 </td>
-
                                 <td className="product-quantity">
                                   <div className="cart-plus-minus">
                                     <span>{cartItem.product_qty}</span>
@@ -353,17 +367,58 @@ const Cart = ({
                                       <span>
                                         <Input
                                           type="text"
+                                          value={offer_code[key]}
                                           placeholder="Enter Code"
+                                          onChange={(e) => {
+                                            var oc1 = offer_code;
+                                            oc1[key] = e.target.value;
+                                            setOffer_code(oc1);
+                                          }}
                                         />
-                                        <Button color="primary" className="">
+                                        <Button
+                                          color="primary"
+                                          className=""
+                                          onClick={() => {
+                                            Axios.post(
+                                              `http://35.154.86.59/api/admin/verifyvalidategetdiscount/${offer_code[key]}`,
+                                              {
+                                                offer_code: offer_code[key],
+                                              }
+                                            )
+                                              .then((response) => {
+                                                const code1 = response.data;
+
+                                                var couAmt = couAmount;
+                                                couAmt[key] =
+                                                  code1.discount_amount;
+                                                setCouAmount(couAmt);
+                                                var sum = 0;
+                                                for (
+                                                  var i = 0;
+                                                  i < couAmt.length;
+                                                  i++
+                                                )
+                                                  if (couAmt[i])
+                                                    sum = sum + couAmt[i];
+                                                setTotalCouAmt(sum);
+                                                setCode(code1);
+
+                                                console.log(code1);
+                                              })
+                                              .catch(function (error) {
+                                                console.log(error);
+                                              });
+                                          }}
+                                        >
                                           Apply
                                         </Button>
                                       </span>
                                     </Form>
                                   </div>
                                 </td>
+
                                 <td className="product-subtotal">
-                                  ₹{cartItem?.gsttotal}
+                                  {cartItem?.gsttotal - couAmount[key]}
                                 </td>
 
                                 <td className="product-remove">
@@ -457,13 +512,17 @@ const Cart = ({
                           Total GST<span>₹{gstTotalPrice}</span>
                         </h4>
                         <h4 className="grand-totall-title">
-                          Grand Total <span>₹{cartTotalPrice}</span>
+                          Total Discount<span>₹{totalCouAmt}</span>
+                        </h4>
+                        <h4 className="grand-totall-title">
+                          Grand Total{" "}
+                          <span>₹{cartTotalPrice - totalCouAmt}</span>
                         </h4>
                       </div>
                       <Link
                         onClick={() =>
                           handlePayment(
-                            cartTotalPrice * 100,
+                            parseInt(cartTotalPrice - totalCouAmt) * 100,
                             "checkout",
                             user.firstname + " " + user.lastname,
                             user.email,

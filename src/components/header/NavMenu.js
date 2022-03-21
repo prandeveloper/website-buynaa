@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 import { multilanguage } from "redux-multilanguage";
 
 const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
@@ -170,6 +171,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
               {strings["about_us"]}
             </Link>
           </li>
+
           {/* {sidebarMenu ? (
                 <span>
                    <i className="fa fa-angle-right"></i> 
@@ -510,6 +512,17 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
               {strings["contact_us"]}
             </Link>
           </li>
+
+          <Button color="primary">
+            <a
+              href="http://seller.buynaa.com"
+              style={{
+                color: "white",
+              }}
+            >
+              Seller Console
+            </a>
+          </Button>
         </ul>
       </nav>
     </div>
