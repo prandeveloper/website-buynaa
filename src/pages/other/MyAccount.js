@@ -291,7 +291,7 @@ export default class MyAccount extends Component {
                       </Card.Body>
                       {/* </Accordion.Collapse> */}
                     </Card>
-                    <Card className="single-my-account mb-20">
+                    {/* <Card className="single-my-account mb-20">
                       <Card.Body>
                         <Form onSubmit={this.addAddress}>
                           <div className="myaccount-info-wrapper">
@@ -307,8 +307,7 @@ export default class MyAccount extends Component {
                           </div>
                         </Form>
                       </Card.Body>
-                      {/* </Accordion.Collapse> */}
-                    </Card>
+                    </Card> */}
                   </div>
                 </div>
               </div>

@@ -9,6 +9,7 @@ import axios from "axios";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { Toast, ToastBody, ToastHeader } from "reactstrap";
+import swal from "sweetalert";
 import { ToastContainer } from "react-bootstrap";
 import { Button } from "reactstrap";
 export default class LoginRegister extends Component {
@@ -19,6 +20,7 @@ export default class LoginRegister extends Component {
       lastname: "",
       email: "",
       mobile: "",
+      username: "",
       password: "",
       otp: true,
       otpnumber: "",
@@ -73,28 +75,82 @@ export default class LoginRegister extends Component {
 
     axios
       .post("http://35.154.86.59/api/user/login", {
-        mobile:
-          parseInt(this.state.email) != NaN
-            ? parseInt(this.state.email)
-            : "null",
+        // mobile:
+        //   parseInt(this.state.email) != NaN
+        //     ? parseInt(this.state.email)
+        //     : "null",
+        username: this.state.username,
         email: this.state.email,
+        mobile: this.state.mobile,
         password: this.state.password,
       })
       .then((response) => {
         console.log(response);
-        //localStorage.setItem("authec", response.data.token);
         localStorage.setItem("auth-token", response.data.token);
         this.props.history.push("/cart");
       })
       .catch((error) => {
         console.log(error);
         console.log(error.response);
+        if (
+          error.response.data.msg !== "success" &&
+          error.response.data.msg != "success"
+        ) {
+          swal(
+            "Wrong UserName or Password",
+            "Enter Correct Email / Number or Password",
+            "error"
+          );
+          this.props.history.push("/login-register");
+        }
       });
   };
   // otp = true;
   changeHandler = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
+  };
+  checkHandler = (e) => {
+    e.preventDefault();
+    if (e.target.value.trim() == "") {
+      this.setState({
+        username: e.target.value.trim(),
+        mobile: "",
+        email: "",
+      });
+      return;
+    }
+    if (isNaN(e.target.value.trim())) {
+      if (
+        /^([A-Za-z0-9_\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
+          e.target.value.trim()
+        ) === false
+      ) {
+        //invalid email
+        this.setState({
+          username: e.target.value.trim(),
+          mobile: "",
+          email: "",
+        });
+        console.log("invalid Email");
+      } else {
+        // valid mail
+        this.setState({
+          username: e.target.value.trim(),
+          mobile: "",
+          email: e.target.value.trim(),
+        });
+        console.log("valid mail");
+      }
+    } else {
+      //valid mobile
+      this.setState({
+        username: e.target.value.trim(),
+        mobile: e.target.value.trim(),
+        email: "",
+      });
+      console.log("Valid Phone");
+    }
   };
   submitHandler = (e) => {
     e.preventDefault();
@@ -107,25 +163,48 @@ export default class LoginRegister extends Component {
         this.setState({
           token: response.data.token,
         });
+        if (
+          response.data.msg !== "Already Exists" &&
+          response.data.msg !== "Already Exists" &&
+          response.data.msg !== undefined
+        ) {
+          axios
+            .post("http://35.154.86.59/api/user/sendotp", {
+              mobile: this.state.mobile,
+            })
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error.response);
+            });
+        }
         //this.props.history.push("/");
       })
       .catch((error) => {
         console.log(error.response);
+        if (
+          error.response.data.msg == "Already Exists" &&
+          error.response.data.msg === "Already Exists"
+        ) {
+          this.props.history.push("/pages/login");
+          swal("Error!", "Email / Number Already Exists", "error");
+        }
       });
 
-    axios
-      .post("http://35.154.86.59/api/user/sendotp", {
-        mobile: this.state.mobile,
-        //customer_email: this.state.email,
-      })
-      .then((response) => {
-        console.log(response);
-        // localStorage.setItem("token", response.data.token);
-        // this.props.history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    // axios
+    //   .post("http://35.154.86.59/api/user/sendotp", {
+    //     mobile: this.state.mobile,
+    //     //customer_email: this.state.email,
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     // localStorage.setItem("token", response.data.token);
+    //     // this.props.history.push("/");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
   };
   render() {
     console.log(this.state.otp);
@@ -168,11 +247,19 @@ export default class LoginRegister extends Component {
                                 <form onSubmit={this.loginHandler}>
                                   <input
                                     type="text"
+                                    name="username"
+                                    placeholder="E-mail / Phone"
+                                    value={this.state.username}
+                                    onChange={this.checkHandler}
+                                    required
+                                  />
+                                  {/* <input
+                                    type="text"
                                     name="email"
                                     placeholder="Email / Mobile"
                                     value={this.state.email}
                                     onChange={this.handlechange}
-                                  />
+                                  /> */}
                                   {/* <input
                                     type="number"
                                     name="mobile"

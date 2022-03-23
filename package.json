@@ -50,6 +50,7 @@
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
+    "sweetalert": "^2.1.2",
     "swiper": "^5.2.0",
     "uuid": "^3.3.3"
   },

@@ -78,12 +78,14 @@ const Cart = ({
     for (var i = 0; i < carts.length; i++) {
       cartId.push(carts[i]._id);
     }
-    setCartId(cartId);
-    console.log(cartId);
+
     setCarts(carts);
     console.log(carts);
 
-    setTotal(data.total);
+    setCartId(cartId);
+    console.log(cartId);
+
+    //setTotal(data.total);
   };
 
   const fetchaddress = async () => {
@@ -99,13 +101,13 @@ const Cart = ({
     console.log(address);
     setUseraddress(address);
   };
-  useEffect(() => {
-    //fetchcarts();
-    if (localStorage.getItem("auth-token")) {
-      fetchcarts();
-      fetchaddress();
-    }
-  }, []);
+  // useEffect(() => {
+  //   //fetchcarts();
+  //   if (localStorage.getItem("auth-token")) {
+  //     fetchcarts();
+  //     fetchaddress();
+  //   }
+  // }, []);
 
   const removeItemfromcart = async (id) => {
     console.log(id);
@@ -154,6 +156,10 @@ const Cart = ({
   const [orderId, setOrderId] = useState("");
   const [user, setUser] = useState("");
   useEffect(() => {
+    if (localStorage.getItem("auth-token")) {
+      fetchcarts();
+      fetchaddress();
+    }
     console.log("useEffect");
     Axios.get("http://35.154.86.59/api/user/getonecustomer", {
       headers: {
@@ -178,16 +184,16 @@ const Cart = ({
       });
   }, []);
   const handlePayment = useCallback(
-    async (
-      amount,
-      description,
-      name,
-      email,
-      contact,
-
-      payment_type
-    ) => {
-      if (payment_type == "COD") {
+    async (amount, description, name, email, contact, payment_type) => {
+      if (payment_type == "Online") {
+        var data = {
+          cart: cartId,
+          payment_type,
+          status: "Pending",
+          shipping_address: useraddress._id,
+          // razorpay_payment_id: res.razorpay_payment_id,
+        };
+        console.log(data);
         return;
       }
       const RazorpayOptions = {
@@ -203,8 +209,7 @@ const Cart = ({
             payment_type,
             status: "Pending",
             shipping_address: useraddress._id,
-
-            payment_id: res.payment_id,
+            razorpay_payment_id: res.razorpay_payment_id,
           };
           console.log(res);
           Axios.post("http://35.154.86.59/api/admin/addordersample", data, {
@@ -213,9 +218,9 @@ const Cart = ({
             },
           })
             .then((response) => {
-              console.log("pranay", response);
+              console.log(response);
 
-              //history.push("/cart");
+              history.push("/cart");
             })
             .catch((error) => {
               console.log(error.response);
@@ -527,7 +532,7 @@ const Cart = ({
                             user.firstname + " " + user.lastname,
                             user.email,
                             user.mobile,
-                            "ONLINE"
+                            "Online"
                           )
                         }
                       >
