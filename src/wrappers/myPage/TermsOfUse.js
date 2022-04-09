@@ -25,14 +25,14 @@ export default class TermsOfUse extends Component {
           <Container>
             <Row>
               <ListGroup>
-                <h3 style={{ fontWeight: "500" }}>
+                <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                   This document is an electronic record in terms of Information
                   Technology Act, 2000 and rules there under as applicable and
                   the amended provisions pertaining to electronic records in
                   various statutes as amended by the Information Technology Act,
                   2000. This electronic record is generated by a computer system
                   and does not require any physical or digital signature.
-                </h3>
+                </h5>
                 <p>
                   The site www.buynaa.com (hereinafter referred to as "Website")
                   is owned by Brizebond Technologies Private Limited, a company
@@ -74,9 +74,9 @@ export default class TermsOfUse extends Component {
             </Row>
             <Row>
               <ListGroup>
-                <h3 style={{ fontWeight: "500" }}>
+                <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                   License and Website Access
-                </h3>
+                </h5>
                 ●General: BUYNAA grants you a limited license to access and make
                 personal use of this Website and not to modify it, or any
                 portion of it, except with express written consent of BUYNAA.
@@ -95,7 +95,9 @@ export default class TermsOfUse extends Component {
             </Row>
             <Row>
               <ListGroup>
-                <h3 style={{ fontWeight: "500" }}>Membership Eligibility</h3>
+                <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                  Membership Eligibility
+                </h5>
                 ●Use of the Website is available only to persons who can form
                 legally binding contracts under the Indian Contract Act, 1872.
                 If you are a minor i.e. under the age of 18 years, you shall not
@@ -110,55 +112,43 @@ export default class TermsOfUse extends Component {
             </Row>
             <Row>
               <ListGroup>
-                <h3 style={{ fontWeight: "500" }}>
+                <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                   Your Account and Registration Obligations
-                </h3>
+                </h5>
                 ●You need to create a primary account to avail the Services by
                 Buynaa. Accurate and complete registration is required to use
                 our Service.
                 <br />
                 ●You are mandatorily required to submit the following details
                 “Registration Data” to create and maintain a Customer account
-                with us:
-                <p style={{ textAlign: "center" }}>Full Name</p>
-                <p style={{ textAlign: "center" }}>Phone Number</p>
-                <p style={{ textAlign: "center" }}>E-mail</p>
-                <p style={{ textAlign: "center" }}>Billing Address</p>
-                <p style={{ textAlign: "center" }}>Shipping Address</p>
+                with us:Full Name,Phone Number,E-mail,Billing Address,Shipping
+                Address
                 <p>
                   You are mandatorily required to submit the following details
                   “Registration Data” to create and maintain a Seller account
                   with us:
                 </p>
-                <p style={{ textAlign: "center" }}>Full Name</p>
-                <p style={{ textAlign: "center" }}>Shop Name</p>
-                <p style={{ textAlign: "center" }}>Phone Number</p>
-                <p style={{ textAlign: "center" }}>E-mail</p>
-                <p style={{ textAlign: "center" }}>Business Address</p>
-                <p style={{ textAlign: "center" }}>
+                Full Name,Shop Name,Phone Number,E-mail,Business Address
+                <p style={{}}>
                   Address proof – Electric Bill, Telephone Bill, Rental
                   Agreement
                 </p>
-                <p style={{ textAlign: "center" }}>
+                <p style={{}}>
                   Personal PAN of the Store Owner (If business is registered as
                   Proprietorship) and both Personal & Company PAN (If business
                   is registered as Company) (Upload Image).
                 </p>
-                <p style={{ textAlign: "center" }}>
-                  GST Certificate (Upload Image), GST number.
-                </p>
-                <p style={{ textAlign: "center" }}>
-                  Trade License Image (Upload Image).{" "}
-                </p>
-                <p style={{ textAlign: "center" }}>
+                <p style={{}}>GST Certificate (Upload Image), GST number.</p>
+                <p style={{}}>Trade License Image (Upload Image). </p>
+                <p style={{}}>
                   Address, Pin code, Store Name, Store Image, Website url, Store
                   Email Id, Phone Number, Alternate Phone Number, Timings.
                 </p>
-                <p style={{ textAlign: "center" }}>
+                <p style={{}}>
                   Employee section – Employee Verification section – Aadhar
                   card, voter id number, driving license number (Upload Image).
                 </p>
-                <p style={{ textAlign: "center" }}>Google Map location data.</p>
+                <p style={{}}>Google Map location data.</p>
                 <p>
                   If you register as a business entity, you represent that you
                   are duly authorized by the business entity to accept the Terms
@@ -216,7 +206,9 @@ export default class TermsOfUse extends Component {
               </ListGroup>
               <Row>
                 <ListGroup>
-                  <h3 style={{ fontWeight: "500" }}>Communications</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Communications
+                  </h5>
                   <p>
                     When You use the Website or send emails or other data,
                     information or communication to us, You agree and understand
@@ -248,9 +240,9 @@ export default class TermsOfUse extends Component {
               </Row>
               <Row>
                 <ListGroup>
-                  <h3 style={{ fontWeight: "500" }}>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                     Platform for Listing and Information
-                  </h3>
+                  </h5>
                   <p>
                     1.BUYNAA is not and cannot be a party to or control in
                     any manner any transaction between the Website's Users.
@@ -335,7 +327,9 @@ export default class TermsOfUse extends Component {
               </Row>
               <Row>
                 <ListGroup>
-                  <h3 style={{ fontWeight: "500" }}>Use of the Website</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Use of the Website
+                  </h5>
                   <p>
                     These terms and conditions supersede all previous
                     representations, understandings, or agreements and shall
@@ -476,7 +470,9 @@ export default class TermsOfUse extends Component {
               </Row>
               <Row>
                 <ListGroup>
-                  <h3 style={{ fontWeight: "500" }}>Privacy</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Privacy
+                  </h5>
                   <p>
                     We view protection of Your privacy as a very important
                     principle. We store and process Your Information including
@@ -487,9 +483,9 @@ export default class TermsOfUse extends Component {
                     accordance with Information Technology Act 2000 and Rules
                     there under. Our current Privacy Policy is available at [.].
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                     Disclaimer of Warranties and Liability
-                  </h3>
+                  </h5>
                   <p>
                     This Website, all the materials and products and services,
                     included on or otherwise made available to You through this
@@ -514,7 +510,9 @@ export default class TermsOfUse extends Component {
                     electronic communication sent from Us are free of viruses or
                     other harmful components.
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>Selling</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Selling
+                  </h5>
                   <p>
                     As a registered seller, you are allowed to list item(s) for
                     sale on the Website in accordance with the agreement which
@@ -541,10 +539,9 @@ export default class TermsOfUse extends Component {
                     multiple listings of the same product listed by you in
                     various categories.
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>
-                    {" "}
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                     Claims against Objectionable Content
-                  </h3>
+                  </h5>
                   <p>
                     If You believe that any Content on the website is illegal,
                     offensive (including but not limited to material that is
@@ -564,10 +561,9 @@ export default class TermsOfUse extends Component {
                     reasonable endeavours to remove such Objectionable Content
                     complained about within a reasonable time.
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>
-                    {" "}
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                     Trademark, Copyright and Restriction
-                  </h3>
+                  </h5>
                   <p>
                     This site is controlled and operated by BUYNAA and products
                     are sold by respective Sellers. All material on this site,
@@ -586,7 +582,9 @@ export default class TermsOfUse extends Component {
                     violation of the copyrights, trademarks and other
                     proprietary rights, and is prohibited.
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>Indemnity</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Indemnity
+                  </h5>
                   <p>
                     You shall indemnify and hold harmless BUYNAA, its licensee,
                     affiliates, subsidiaries, group companies (as applicable)
@@ -603,14 +601,18 @@ export default class TermsOfUse extends Component {
                     This clause shall survive the expiry or termination of this
                     Agreement.
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>Limitation of Liability</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Limitation of Liability
+                  </h5>
                   <p>
                     IN NO EVENT SHALL WEEBUY BE LIABLE FOR ANY SPECIAL,
                     INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND IN
                     CONNECTION WITH THESE TERMS OF USE, EVEN IF USER HAS BEEN
                     INFORMED IN ADVANCE OF THE POSSIBILITY OF SUCH DAMAGES.
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>Termination:</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Termination:
+                  </h5>
                   <p>
                     BUYNAA reserves its right to limit, refuse service,
                     restrict, suspend, prohibit access to the Website, terminate
@@ -633,9 +635,9 @@ export default class TermsOfUse extends Component {
                     party, anything acting inconsistently with the letter of
                     spirit of our policies or harassing our employees etc.
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                     Alteration or Amendments to the Conditions
-                  </h3>
+                  </h5>
                   <p>
                     We reserve the right to make changes to our Policies at any
                     time. You will be subject to the Policies in force at the
@@ -644,9 +646,9 @@ export default class TermsOfUse extends Component {
                     condition will be deemed severable and will not affect the
                     validity and enforceability of any remaining condition. 
                   </p>
-                  <h3 style={{ fontWeight: "500" }}>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
                     Grievance officer for infringement and other claims
-                  </h3>
+                  </h5>
                   <p>
                     In accordance with Information Technology Act 2000 and rules
                     made there under, the name and contact details of the
@@ -684,7 +686,9 @@ export default class TermsOfUse extends Component {
               </Row>
               <Row>
                 <ListGroup>
-                  <h3 style={{ fontWeight: "500" }}>Applicable Law</h3>
+                  <h5 style={{ fontWeight: "500", padding: "15px 0px" }}>
+                    Applicable Law
+                  </h5>
                   <p>
                     These Terms of Use shall be governed by and interpreted and
                     construed in accordance with the laws of India. The place of

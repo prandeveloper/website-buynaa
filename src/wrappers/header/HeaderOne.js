@@ -57,11 +57,11 @@ const HeaderOne = ({
         }`}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
-          <div className="row" style={{ marginBottom: "-10px" }}>
+          <div className="row" style={{ marginBottom: "-8px" }}>
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
               <div style={{ padding: 15 }}>
-                <Logo imageUrl="/assets/img/logo/logo.png" />
+                <Logo imageUrl="/assets/img/logo/BuyNaa.png" />
               </div>
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">

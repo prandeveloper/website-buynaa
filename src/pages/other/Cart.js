@@ -74,16 +74,15 @@ const Cart = ({
     );
     const carts = data.data;
     console.log(carts);
-    var cartId = [];
+    var cartId1 = [];
     for (var i = 0; i < carts.length; i++) {
-      cartId.push(carts[i]._id);
+      cartId1.push(carts[i]._id);
     }
+    setCartId(cartId1);
+    console.log(cartId1);
 
     setCarts(carts);
     console.log(carts);
-
-    setCartId(cartId);
-    console.log(cartId);
 
     //setTotal(data.total);
   };
@@ -156,6 +155,7 @@ const Cart = ({
   const [orderId, setOrderId] = useState("");
   const [user, setUser] = useState("");
   useEffect(() => {
+    console.log(cartId);
     if (localStorage.getItem("auth-token")) {
       fetchcarts();
       fetchaddress();
@@ -183,9 +183,10 @@ const Cart = ({
         console.log(error.response);
       });
   }, []);
+
   const handlePayment = useCallback(
-    async (amount, description, name, email, contact, payment_type) => {
-      if (payment_type == "Online") {
+    async (amount, description, name, email, contact, payment_type, cartId) => {
+      if (payment_type == "COD") {
         var data = {
           cart: cartId,
           payment_type,
@@ -193,7 +194,7 @@ const Cart = ({
           shipping_address: useraddress._id,
           // razorpay_payment_id: res.razorpay_payment_id,
         };
-        console.log(data);
+        console.log(cartId);
         return;
       }
       const RazorpayOptions = {
@@ -247,6 +248,9 @@ const Cart = ({
     },
     [Razorpay]
   );
+  useEffect(() => {
+    console.log(cartId);
+  }, [cartId]);
 
   return (
     <Fragment>
@@ -423,7 +427,9 @@ const Cart = ({
                                 </td>
 
                                 <td className="product-subtotal">
-                                  {cartItem?.gsttotal - couAmount[key]}
+                                  {couAmount[key]
+                                    ? cartItem?.gsttotal - couAmount[key]
+                                    : cartItem.gsttotal}
                                 </td>
 
                                 <td className="product-remove">
@@ -532,7 +538,8 @@ const Cart = ({
                             user.firstname + " " + user.lastname,
                             user.email,
                             user.mobile,
-                            "Online"
+                            "Online",
+                            cartId
                           )
                         }
                       >

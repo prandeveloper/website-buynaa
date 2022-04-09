@@ -15,7 +15,7 @@ export class FirstSectiontree extends Component {
               <img src={store1} style={{ width: "12rem" }} alt="" />
               <h4 className="fw-bold">Find A Shop</h4>
               <h5 style={{ font: "caption" }}>
-                loremTempor mollit esse deserunt ea adipisicing mollit veniam
+                Look for trusted shops nearby using location based search.
               </h5>
             </Col>
             <Col lg="1" className="d-flex align-items-center">
@@ -33,7 +33,7 @@ export class FirstSectiontree extends Component {
               <img src={store2} style={{ width: "12rem" }} alt="" />
               <h4 className="fw-bold">Check Shop Profile</h4>
               <h5 style={{ font: "caption" }}>
-                loremTempor mollit esse deserunt ea adipisicing mollit veniam
+                Check the shop profile and create your shopping list.
               </h5>
             </Col>
             <Col lg="1" className="d-flex align-items-center">
@@ -51,7 +51,7 @@ export class FirstSectiontree extends Component {
               <img src={store3} style={{ width: "12rem" }} alt="" />
               <h4 className="fw-bold">Visit the Shop</h4>
               <h5 style={{ font: "caption" }}>
-                loremTempor mollit esse deserunt ea adipisicing mollit veniam
+                Visit and shop for all that you like.
               </h5>
             </Col>
           </Row>

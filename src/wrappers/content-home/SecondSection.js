@@ -60,6 +60,9 @@ class SecondSection extends React.Component {
                 <h2 className="fw-bolder" style={{ color: "#1877f2" }}>
                   Browse By Trending Store
                 </h2>
+                <p className="d-flex justify-content-center align-items-center">
+                  create a professional online store for your brand
+                </p>
               </Col>
             </Row>
           </Container>

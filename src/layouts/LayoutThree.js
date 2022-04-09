@@ -8,7 +8,7 @@ const LayoutThree = ({
   headerContainerClass,
   headerTop,
   headerBorderStyle,
-  headerPaddingClass
+  headerPaddingClass,
 }) => {
   return (
     <Fragment>
@@ -27,7 +27,7 @@ const LayoutThree = ({
         footerTopSpaceTopClass="pt-80"
         footerTopSpaceBottomClass="pb-60"
         copyrightColorClass="copyright-gray"
-        footerLogo="/assets/img/logo/logo.png"
+        footerLogo="/assets/img/logo/BuyNaa.png"
       />
     </Fragment>
   );
@@ -38,7 +38,7 @@ LayoutThree.propTypes = {
   headerBorderStyle: PropTypes.string,
   headerContainerClass: PropTypes.string,
   headerPaddingClass: PropTypes.string,
-  headerTop: PropTypes.string
+  headerTop: PropTypes.string,
 };
 
 export default LayoutThree;

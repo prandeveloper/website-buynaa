@@ -11,7 +11,7 @@ import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
-import TermsOfUse from "./wrappers/myPage/TermsOfUse";
+
 import { Component } from "react";
 
 // home pages
@@ -114,6 +114,7 @@ const BlogDetailsStandard = lazy(() =>
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
 const faqPage = lazy(() => import("./wrappers/myPage/FaqPage"));
+const TermsOfUse = lazy(() => import("./wrappers/myPage/TermsOfUse"));
 const privacyPolicy = lazy(() => import("./wrappers/myPage/privacyPolicy"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));

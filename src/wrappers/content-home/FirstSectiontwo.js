@@ -16,7 +16,7 @@ export class FirstSectiontwo extends Component {
           How Buynaa Works?
         </h2>
         <h6 style={{ textAlign: "center" }}>
-          quis qui ex in qui non reprehenderit
+          Buynaa Local clothes Has Never Been Easier
         </h6>
       </div>
     );

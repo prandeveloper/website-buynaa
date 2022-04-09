@@ -20,23 +20,6 @@ class ByCategory extends React.Component {
         this.setState({ ByCategoryList: res.data.data });
       });
   }
-  // const [users, setUsers] = useState([]);
-  // const getUsers = async()=>{
-  // const res= await axios.get(`http://35.154.86.59/api/admin/productbycategory/618a05e27e718858ba3de153`).then((data)=>{
-  //   console.log(data)
-  //   console.log(data.data.data)
-  //   setUsers(data.data.data)
-
-  // }).catch((error)=>{
-  //   console.log(error)
-  // });
-  // console.log(res);
-  //setUsers(await res.json());
-  // console.log(data);
-  // }
-  // useEffect(() => {
-  //    getUsers();
-  // },[]);
 
   render() {
     const ByCategoryListData = this.state.ByCategoryList?.map((data) => {
@@ -69,6 +52,9 @@ class ByCategory extends React.Component {
               >
                 Browse By Category
               </h1>
+              <p className="">
+                create a professional online store for your brand
+              </p>
             </Col>
             <Col className="d-flex justify-content-end">
               <Button
