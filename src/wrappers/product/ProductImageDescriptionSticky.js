@@ -63,8 +63,8 @@ const ProductImageDescriptionSticky = ({
     if (t !== undefined && t !== null) setImgArr(t);
     if (t1 !== undefined && t1 !== null) setSelectedColor(t1[0].colorName);
     if (t2 !== undefined && t2 !== null) setSelectedSize(t2[0].sizeName);
-    console.log(t1);
-    console.log(t2);
+    // console.log(t1);
+    // console.log(t2);
     setstate(JSON.parse(productImage));
   }, [productImage]);
 
@@ -165,7 +165,6 @@ const ProductImageDescriptionSticky = ({
                   </span>
                 </h2>
               </div>
-
               <div className="pro-details-rating-wrap">
                 <div className="pro-details-rating">
                   {rating.map((val, index) => (
@@ -189,7 +188,6 @@ const ProductImageDescriptionSticky = ({
                   ))}
                 </div>
               </div>
-
               {/* section Color */}
               <div className="pro-details-size-color">
                 <div className="pro-details-color-wrap">
@@ -268,55 +266,99 @@ const ProductImageDescriptionSticky = ({
                 </div>
               </div>
 
-              <div className="pro-details-quality">
-                <div className="cart-plus-minus">
-                  <button
-                    onClick={() =>
-                      setQuantityCount(
-                        quantityCount > 1 ? quantityCount - 1 : 1
-                      )
-                    }
-                    // onClick={()=>
-                    // console.log(quantityCount)}
-                    className="dec qtybutton"
-                  >
-                    -
-                  </button>
-                  <input
-                    className="cart-plus-minus-box"
-                    type="text"
-                    value={quantityCount}
-                  />
-                  <button
-                    className="inc qtybutton"
-                    onClick={() =>
-                      setQuantityCount(
-                        quantityCount >= 1 ? quantityCount + 1 : 1
-                      )
-                    }
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="pro-details-cart btn-hover">
-                  <button
-                    onClick={() => {
-                      console.log({
-                        product: state._id,
-                        product_qty: quantityCount,
-                        product_price: state.sell_price,
-                        color: selectedColor,
-                        size: selectedSize,
-                      });
-                      if (localStorage.getItem("auth-token")) {
+              {state?.sell_mode === "Online" ? (
+                <div className="pro-details-quality">
+                  <div className="cart-plus-minus">
+                    <button
+                      onClick={() =>
+                        setQuantityCount(
+                          quantityCount > 1 ? quantityCount - 1 : 1
+                        )
+                      }
+                      // onClick={()=>
+                      // console.log(quantityCount)}
+                      className="dec qtybutton"
+                    >
+                      -
+                    </button>
+                    <input
+                      className="cart-plus-minus-box"
+                      type="text"
+                      value={quantityCount}
+                    />
+                    <button
+                      className="inc qtybutton"
+                      onClick={() =>
+                        setQuantityCount(
+                          quantityCount >= 1 ? quantityCount + 1 : 1
+                        )
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <div className="pro-details-cart btn-hover">
+                    <button
+                      onClick={() => {
+                        console.log({
+                          product: state._id,
+                          product_qty: quantityCount,
+                          product_price: state.sell_price,
+                          color: selectedColor,
+                          size: selectedSize,
+                        });
+                        if (localStorage.getItem("auth-token")) {
+                          Axios.post(
+                            "http://35.154.86.59/api/admin/add_ToCart",
+                            {
+                              product: state._id,
+                              product_qty: quantityCount,
+                              product_price: state.sell_price,
+                              color: selectedColor,
+                              size: selectedSize,
+                            },
+                            {
+                              headers: {
+                                "auth-token":
+                                  localStorage.getItem("auth-token"),
+                              },
+                            }
+                          )
+                            .then((response) => {
+                              // alert("Added To Cart");
+                              window.location.reload();
+                              console.log(response);
+                            })
+                            .catch(function (error) {
+                              alert("Something Went Wrong");
+                              console.log(error.response);
+                            });
+                        } else {
+                          history.push("/login-register");
+                        }
+                      }}
+                    >
+                      Add To Cart
+                    </button>
+                  </div>
+                  <div className="pro-details-cart btn-hover">
+                    <button
+                      title={
+                        wishlistItems !== undefined
+                          ? "Added to wishlist"
+                          : "Add to wishlist"
+                      }
+                      onClick={() => {
+                        console.log("btn clicked");
                         Axios.post(
-                          "http://35.154.86.59/api/admin/add_ToCart",
+                          "http://35.154.86.59/api/admin/addwishlist",
                           {
                             product: state._id,
-                            product_qty: quantityCount,
-                            product_price: state.sell_price,
                             color: selectedColor,
                             size: selectedSize,
+                            qty: quantityCount,
+                            price: state.sell_price,
                           },
                           {
                             headers: {
@@ -325,62 +367,27 @@ const ProductImageDescriptionSticky = ({
                           }
                         )
                           .then((response) => {
-                            alert("Added To Cart");
+                            // alert("Added To Wishlist");
                             window.location.reload();
                             console.log(response);
-                            //pahucha dena
                           })
                           .catch(function (error) {
-                            alert("error by pratima");
                             console.log(error.response);
                           });
-                      } else {
-                        history.push("/login-register");
-                      }
-                    }}
-                  >
-                    Add To Cart
-                  </button>
+                      }}
+                    >
+                      <i className="pe-7s-like" style={heart} />
+                      Wishlist
+                    </button>
+                  </div>
                 </div>
-                <div className="pro-details-cart btn-hover">
-                  <button
-                    title={
-                      wishlistItems !== undefined
-                        ? "Added to wishlist"
-                        : "Add to wishlist"
-                    }
-                    onClick={() => {
-                      console.log("btn clicked");
-                      Axios.post(
-                        "http://35.154.86.59/api/admin/addwishlist",
-                        {
-                          product: state._id,
-                          color: selectedColor,
-                          size: selectedSize,
-                          qty: quantityCount,
-                          price: state.sell_price,
-                        },
-                        {
-                          headers: {
-                            "auth-token": localStorage.getItem("auth-token"),
-                          },
-                        }
-                      )
-                        .then((response) => {
-                          alert("Added To Wishlist");
-                          window.location.reload();
-                          console.log(response);
-                        })
-                        .catch(function (error) {
-                          console.log(error.response);
-                        });
-                    }}
-                  >
-                    <i className="pe-7s-like" style={heart} />
-                    Wishlist
-                  </button>
+              ) : (
+                <div className="pro-details-quality">
+                  <h4 className="text-danger fw-bolder">
+                    Productg Available On Offline Store
+                  </h4>
                 </div>
-              </div>
+              )}
             </div>
             {/* </Sticky> */}
           </div>

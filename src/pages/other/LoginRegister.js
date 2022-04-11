@@ -39,7 +39,7 @@ export default class LoginRegister extends Component {
     axios
       .post("http://35.154.86.59/api/user/verifyotp", {
         mobile: this.state.mobile,
-        //customer_email: this.state.email,
+        email: this.state.email,
         otp: this.state.otpnumber,
       })
       .then((response) => {
@@ -171,6 +171,7 @@ export default class LoginRegister extends Component {
           axios
             .post("http://35.154.86.59/api/user/sendotp", {
               mobile: this.state.mobile,
+              email: this.state.email,
             })
             .then((response) => {
               console.log(response);
