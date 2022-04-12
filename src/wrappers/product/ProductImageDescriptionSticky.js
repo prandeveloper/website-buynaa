@@ -384,7 +384,7 @@ const ProductImageDescriptionSticky = ({
               ) : (
                 <div className="pro-details-quality">
                   <h4 className="text-danger fw-bolder">
-                    Productg Available On Offline Store
+                    Product Available On Offline Store
                   </h4>
                 </div>
               )}
