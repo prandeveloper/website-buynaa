@@ -12,8 +12,6 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
-import { Component } from "react";
-
 // home pages
 // const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
 //const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
