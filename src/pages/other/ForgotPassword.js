@@ -38,7 +38,6 @@ export default class ForgotPassword extends Component {
       })
       .catch((error) => {
         console.log(error.response);
-        //this.setState({ errormsg: error });
       });
   };
 
