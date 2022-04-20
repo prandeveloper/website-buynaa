@@ -16,7 +16,7 @@ export default class NewPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cnfrm_password: "",
+      cnfrmPassword: "",
       password: "",
     };
   }
@@ -76,9 +76,9 @@ export default class NewPassword extends Component {
 
                           <input
                             type="text"
-                            name="cnfrm_password"
+                            name="cnfrmPassword"
                             placeholder="Confirm Password"
-                            value={this.state.cnfrm_password}
+                            value={this.state.cnfrmPassword}
                             onChange={this.changeHandler}
                           />
 
