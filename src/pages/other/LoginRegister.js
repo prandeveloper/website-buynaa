@@ -222,7 +222,8 @@ export default class LoginRegister extends Component {
           <div className="login-register-area pt-100 pb-100">
             <div className="container">
               <div className="row d-flex align-items-center justify-content-center">
-                <div className="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div className="col-lg-7 col-md-12 p-4 ml-auto mr-auto">
+                  {/* style={{ background: "#CFECEC" }} */}
                   {this.state.otp ? (
                     <div className="login-register-wrapper">
                       <Tab.Container defaultActiveKey="login">
@@ -249,25 +250,12 @@ export default class LoginRegister extends Component {
                                   <input
                                     type="text"
                                     name="username"
-                                    placeholder="E-mail / Phone"
+                                    placeholder="E-mail / Mobile No."
                                     value={this.state.username}
                                     onChange={this.checkHandler}
                                     required
                                   />
-                                  {/* <input
-                                    type="text"
-                                    name="email"
-                                    placeholder="Email / Mobile"
-                                    value={this.state.email}
-                                    onChange={this.handlechange}
-                                  /> */}
-                                  {/* <input
-                                    type="number"
-                                    name="mobile"
-                                    placeholder="Mobile No"
-                                    value={this.state.mobile}
-                                    onChange={this.handlechange}
-                                  /> */}
+
                                   <input
                                     type="password"
                                     name="password"
@@ -275,11 +263,22 @@ export default class LoginRegister extends Component {
                                     value={this.state.password}
                                     onChange={this.handlechange}
                                   />
-                                  <div className="button-box">
-                                    <div className="login-toggle-btn"></div>
-                                    <button type="submit">
-                                      <span>Login</span>
-                                    </button>
+                                  <div className="d-flex justify-content-between mt-4">
+                                    <div className="button-box">
+                                      <button type="submit">
+                                        <span>Login</span>
+                                      </button>
+                                    </div>
+                                    <div className="button-box">
+                                      <button
+                                        onClick={() =>
+                                          (window.location.href =
+                                            "./forgotPassword")
+                                        }
+                                      >
+                                        <span>Forgot Password</span>
+                                      </button>
+                                    </div>
                                   </div>
                                 </form>
                               </div>

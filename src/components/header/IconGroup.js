@@ -71,12 +71,12 @@ const IconGroup = ({
     <div
       className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ""}`}
     >
-      <div className="same-style account-setting d-none d-lg-block">
+      <div className="same-style account-setting  d-lg-block">
         <button
           className="account-setting-active"
           onClick={(e) => handleClick(e)}
         >
-          <i className="pe-7s-user-female" />
+          <i className="pe-7s-user" />
         </button>
         <div className="account-dropdown">
           <ul>

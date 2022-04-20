@@ -512,17 +512,19 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
               {strings["contact_us"]}
             </Link>
           </li>
-
-          <Button color="primary">
+          <li>
             <a
               href="http://seller.buynaa.com"
               style={{
-                color: "white",
+                color: "blue",
+                fontSize: 18,
+                fontWeight: 700,
+                textDecoration: "underline",
               }}
             >
               Seller Console
             </a>
-          </Button>
+          </li>
         </ul>
       </nav>
     </div>

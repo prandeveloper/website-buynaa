@@ -9,6 +9,7 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
 import { Form, Input, Button } from "reactstrap";
 import { getDiscountPrice } from "../../helpers/product";
+import swal from "sweetalert";
 import {
   addToCart,
   decreaseQuantity,
@@ -45,23 +46,6 @@ const Cart = ({
   const [cartId, setCartId] = useState([]);
   const [total, setTotal] = useState([]);
   const [useraddress, setUseraddress] = useState([]);
-  //const { id } = useParams();
-
-  // const submitcoupon = (e) => {
-  //   e.preventDefault();
-
-  //   Axios.get(
-  //     `http://35.154.86.59/api/admin/verifyvalidategetdiscount/${offer_code}`
-  //   )
-  //     .then((response) => {
-  //       const code = response.data;
-  //       setCode(code);
-  //       console.log(code);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response);
-  //     });
-  // };
 
   const fetchcarts = async () => {
     const { data } = await Axios.get(
@@ -100,13 +84,6 @@ const Cart = ({
     console.log(address);
     setUseraddress(address);
   };
-  // useEffect(() => {
-  //   //fetchcarts();
-  //   if (localStorage.getItem("auth-token")) {
-  //     fetchcarts();
-  //     fetchaddress();
-  //   }
-  // }, []);
 
   const removeItemfromcart = async (id) => {
     console.log(id);
@@ -220,8 +197,17 @@ const Cart = ({
           })
             .then((response) => {
               console.log(response);
-
-              history.push("/cart");
+              if (
+                response.data.msg == "Product added to Order" &&
+                response.data.msg === "Product added to Order"
+              ) {
+                swal(
+                  "Success!",
+                  "Payment Success... Product Added To My Order",
+                  "success"
+                );
+              }
+              history.push("/myOrder");
             })
             .catch((error) => {
               console.log(error.response);
@@ -483,9 +469,6 @@ const Cart = ({
                         </h4>
                       </div>
                       <div className="tax-wrapper">
-                        {/* <h5>
-                          {useraddress?.customer?.firstname} {useraddress?.customer?.lastname},{useraddress?.address},{useraddress?.locality},{useraddress?.state},{useraddress?.pincode},
-                        </h5> */}
                         <div className="tax-select-wrapper">
                           <h4>
                             <span style={{ textTransform: "capitalize mb-2" }}>
