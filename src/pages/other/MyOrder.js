@@ -16,6 +16,9 @@ import { addToCart } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Axios from "axios";
+//import Moment from "react-moment";
+//import "moment-timezone";
+import moment from "moment";
 
 const MyOrder = ({
   location,
@@ -86,7 +89,7 @@ const MyOrder = ({
                             <th>AMOUNT</th>
                             {/* <th>Unit Price</th> */}
                             <th>Order Status</th>
-                            <th>action</th>
+                            <th>Order Date</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -140,6 +143,10 @@ const MyOrder = ({
                                 <td className="product-price-cart">
                                   <span className="amount"></span>
                                   {orders?.status}
+                                </td>
+                                <td className="product-price-cart">
+                                  <span className="amount"></span>
+                                  {moment(orders?.createdAt).format("ll")}
                                 </td>
 
                                 {/* <td className="product-wishlist-cart">

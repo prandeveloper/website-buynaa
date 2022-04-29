@@ -20,24 +20,18 @@ const ProductDescriptionTab = ({
   const [comment, setComment] = useState([]);
   const [rating, allRating] = useState([true, true, false, false, false]);
 
-  console.log(productid);
   const fetchReview = async (productid) => {
-    console.log(productid);
     const { data } = await Axios.get(
       `http://35.154.86.59/api/admin/getonereviewproduct/${productid}`
     );
-    console.log(data);
     const review = data.data;
     var averagerating = 0;
     for (let i = 0; i < review.length; i++) {
       const value = review[i].rating;
       averagerating = averagerating + value;
     }
-    console.log(averagerating);
     var newaverage = averagerating / review.length;
-    console.log(newaverage);
     setAverage(newaverage);
-    console.log(review);
     setReview(review);
   };
 
@@ -47,7 +41,6 @@ const ProductDescriptionTab = ({
 
   const submitrating = (e) => {
     e.preventDefault();
-    console.log({ rating: value, comment: comment, productid: productid });
     Axios.post(
       `http://35.154.86.59/api/admin/addreview`,
       {
@@ -62,15 +55,11 @@ const ProductDescriptionTab = ({
       }
     )
       .then((response) => {
-        console.log(response.data.data);
         fetchReview(productid);
         //this.setState({ detail: response.data.data,pid:response.data.data._id });
       })
-      .catch((error) => {
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
-  //console.log("Product Desc", JSON.parse(productFullDesc));
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
@@ -80,12 +69,10 @@ const ProductDescriptionTab = ({
     }
   }, [productid]);
   React.useEffect(() => {
-    //console.log("Product Desc", productFullDesc);
     var t = JSON.parse(productFullDesc).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productFullDesc));
   }, [productFullDesc]);
-  console.log(state);
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>
       <div className="container mt-5 mb-5">
@@ -260,7 +247,6 @@ const ProductDescriptionTab = ({
                                 name="simple-controlled"
                                 value={value}
                                 onChange={(event, newValue) => {
-                                  console.log(event);
                                   setValue(newValue);
                                 }}
                               />

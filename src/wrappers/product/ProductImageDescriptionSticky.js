@@ -2,18 +2,13 @@ import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 //import { useToasts } from "react-toast-notifications";
-import Sticky from "react-sticky-el";
 import Carousel from "react-bootstrap/Carousel";
-//import { getDiscountPrice } from "../../helpers/product";
-//import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
-//import ProductImageGallerySticky from "../../components/product/ProductImageGallerySticky";
-//import { getProductCartQuantity } from "../../helpers/product";
+
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
-import Rating from "../../components/product/sub-components/ProductRating";
 import Axios from "axios";
-import { Button, Radio, ButtonGroup } from "reactstrap";
+import { Button } from "reactstrap";
 import "./ProductImageDescriptionStickycss.css";
 import { useHistory } from "react-router-dom";
 
@@ -36,19 +31,6 @@ const ProductImageDescriptionSticky = ({
   wishlistItems,
   productImage,
 }) => {
-  // const wishlistItem = wishlistItems.filter(
-  //   wishlistItem => wishlistItem.id === product.id
-  // )[0];
-  // const compareItem = compareItems.filter(
-  //   compareItem => compareItem.id === product.id
-  // )[0];
-  // const { addToast } = useToasts();
-
-  // const discountedPrice = getDiscountPrice(product.price, product.discount);
-  // const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  //const finalDiscountedPrice = +(
-  //   discountedPrice * currency.currencyRate
-  // ).toFixed(2);
   const [quantityCount, setQuantityCount] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [rating, allRating] = useState([false, false, false, false, false]);
@@ -63,8 +45,7 @@ const ProductImageDescriptionSticky = ({
     if (t !== undefined && t !== null) setImgArr(t);
     if (t1 !== undefined && t1 !== null) setSelectedColor(t1[0].colorName);
     if (t2 !== undefined && t2 !== null) setSelectedSize(t2[0].sizeName);
-    // console.log(t1);
-    // console.log(t2);
+
     setstate(JSON.parse(productImage));
   }, [productImage]);
 
@@ -98,23 +79,6 @@ const ProductImageDescriptionSticky = ({
             </div>
           </div>
           <div className="col-lg-6 col-md-6">
-            {/* <Sticky
-              boundaryElement=".shop-area"
-              style={{ position: "relative" }}
-            > */}
-            {/* product description info */}
-            {/* <ProductDescriptionInfo
-                //product={product}
-                //discountedPrice={discountedPrice}
-                //currency={currency}
-                //finalDiscountedPrice={finalDiscountedPrice}
-                //finalProductPrice={state?.sell_price}
-                // cartItems={cartItems}
-                // wishlistItem={wishlistItem}
-                // compareItem={compareItem}
-                // addToast={addToast}
-                fullProductDesc={JSON.stringify(state)}
-              /> */}
             <div className="product-details-content ml-70 mt-5 mb-5">
               <h4
                 style={{
@@ -209,7 +173,6 @@ const ProductImageDescriptionSticky = ({
                                 }
                                 onClick={() => {
                                   setActiveindex(i);
-                                  console.log(clr?.colorName);
                                   setSelectedColor(clr?.colorName);
                                 }}
                               />
@@ -266,7 +229,7 @@ const ProductImageDescriptionSticky = ({
                 </div>
               </div>
 
-              {state?.sell_mode === "Online" ? (
+              {state?.sell_mode === "Online" && state?.qty !== 0 ? (
                 <div className="pro-details-quality">
                   <div className="cart-plus-minus">
                     <button
@@ -275,8 +238,6 @@ const ProductImageDescriptionSticky = ({
                           quantityCount > 1 ? quantityCount - 1 : 1
                         )
                       }
-                      // onClick={()=>
-                      // console.log(quantityCount)}
                       className="dec qtybutton"
                     >
                       -
@@ -301,13 +262,6 @@ const ProductImageDescriptionSticky = ({
                   <div className="pro-details-cart btn-hover">
                     <button
                       onClick={() => {
-                        console.log({
-                          product: state._id,
-                          product_qty: quantityCount,
-                          product_price: state.sell_price,
-                          color: selectedColor,
-                          size: selectedSize,
-                        });
                         if (localStorage.getItem("auth-token")) {
                           Axios.post(
                             "http://35.154.86.59/api/admin/add_ToCart",
@@ -326,13 +280,10 @@ const ProductImageDescriptionSticky = ({
                             }
                           )
                             .then((response) => {
-                              // alert("Added To Cart");
                               window.location.reload();
-                              console.log(response);
                             })
                             .catch(function (error) {
                               alert("Something Went Wrong");
-                              console.log(error.response);
                             });
                         } else {
                           history.push("/login-register");
@@ -350,7 +301,6 @@ const ProductImageDescriptionSticky = ({
                           : "Add to wishlist"
                       }
                       onClick={() => {
-                        console.log("btn clicked");
                         Axios.post(
                           "http://35.154.86.59/api/admin/addwishlist",
                           {
@@ -367,13 +317,9 @@ const ProductImageDescriptionSticky = ({
                           }
                         )
                           .then((response) => {
-                            // alert("Added To Wishlist");
                             window.location.reload();
-                            console.log(response);
                           })
-                          .catch(function (error) {
-                            console.log(error.response);
-                          });
+                          .catch(function (error) {});
                       }}
                     >
                       <i className="pe-7s-like" style={heart} />
@@ -383,13 +329,15 @@ const ProductImageDescriptionSticky = ({
                 </div>
               ) : (
                 <div className="pro-details-quality">
-                  <h4 className="text-danger fw-bolder">
-                    Product Available On Offline Store
-                  </h4>
+                  <div className="pro-details-cart btn-hover">
+                    <button>Out Of Stock</button>
+                  </div>
+                  <div className="pro-details-cart btn-hover">
+                    <button>Available on Offline store</button>
+                  </div>
                 </div>
               )}
             </div>
-            {/* </Sticky> */}
           </div>
         </div>
       </div>

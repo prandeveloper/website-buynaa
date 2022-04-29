@@ -1,16 +1,11 @@
 // import PropTypes from "prop-types";
 import React, { Fragment, Component } from "react";
 import MetaTags from "react-meta-tags";
-import { Link, useHistory } from "react-router-dom";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import axios from "axios";
 import LayoutOne from "../../layouts/LayoutOne";
-import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { Toast, ToastBody, ToastHeader } from "reactstrap";
 import swal from "sweetalert";
-import { ToastContainer } from "react-bootstrap";
 import { Button } from "reactstrap";
 export default class LoginRegister extends Component {
   constructor(props) {
@@ -26,11 +21,6 @@ export default class LoginRegister extends Component {
       otpnumber: "",
       token: "",
     };
-    // this.state = {
-    //   email: "",
-    //   mobile: "",
-    //   password: "",
-    // };
   }
 
   otpHandler = (e) => {
@@ -44,7 +34,6 @@ export default class LoginRegister extends Component {
       })
       .then((response) => {
         console.log(response);
-        //localStorage.setItem("user", response.data.data._id);
         localStorage.setItem("auth-token", this.state.token);
         // const location = this.props.location;
         // if (location.state && location.state.nextPathname) {
@@ -75,10 +64,6 @@ export default class LoginRegister extends Component {
 
     axios
       .post("http://35.154.86.59/api/user/login", {
-        // mobile:
-        //   parseInt(this.state.email) != NaN
-        //     ? parseInt(this.state.email)
-        //     : "null",
         username: this.state.username,
         email: this.state.email,
         mobile: this.state.mobile,
@@ -159,7 +144,6 @@ export default class LoginRegister extends Component {
       .post("http://35.154.86.59/api/user/signup", this.state)
       .then((response) => {
         console.log(response);
-        // localStorage.setItem("token", response.data.token);
         this.setState({
           token: response.data.token,
         });
@@ -180,7 +164,6 @@ export default class LoginRegister extends Component {
               console.log(error.response);
             });
         }
-        //this.props.history.push("/");
       })
       .catch((error) => {
         console.log(error.response);
@@ -192,20 +175,6 @@ export default class LoginRegister extends Component {
           swal("Error!", "Email / Number Already Exists", "error");
         }
       });
-
-    // axios
-    //   .post("http://35.154.86.59/api/user/sendotp", {
-    //     mobile: this.state.mobile,
-    //     //customer_email: this.state.email,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     // localStorage.setItem("token", response.data.token);
-    //     // this.props.history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
   };
   render() {
     console.log(this.state.otp);

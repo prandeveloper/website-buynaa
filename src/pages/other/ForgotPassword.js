@@ -25,7 +25,8 @@ export default class ForgotPassword extends Component {
       })
       .then((response) => {
         console.log(response);
-        localStorage.setItem("auth-token", this.state.token);
+        console.log(response.data.token);
+        localStorage.setItem("auth-token", response.data.token);
         window.location.href = "./newPassword";
       })
       .catch((error) => {
