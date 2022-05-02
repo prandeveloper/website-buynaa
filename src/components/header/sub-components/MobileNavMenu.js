@@ -503,6 +503,19 @@ const MobileNavMenu = ({ strings }) => {
             {strings["contact_us"]}
           </Link>
         </li>
+        <li>
+          <a
+            href="http://seller.buynaa.com"
+            style={{
+              color: "blue",
+              fontSize: 18,
+              fontWeight: 700,
+              textDecoration: "underline",
+            }}
+          >
+            Seller Console
+          </a>
+        </li>
       </ul>
     </nav>
   );
