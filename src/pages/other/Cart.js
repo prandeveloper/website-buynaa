@@ -38,6 +38,7 @@ const Cart = ({
   const { pathname } = location;
   let cartTotalPrice = 0;
   let gstTotalPrice = 0;
+
   const [offer_code, setOffer_code] = useState([]);
   const [couAmount, setCouAmount] = useState([]);
   const [totalCouAmt, setTotalCouAmt] = useState(0);

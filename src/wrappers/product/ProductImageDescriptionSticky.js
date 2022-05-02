@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
-//import { useToasts } from "react-toast-notifications";
 import Carousel from "react-bootstrap/Carousel";
-
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
@@ -229,7 +227,13 @@ const ProductImageDescriptionSticky = ({
                 </div>
               </div>
 
-              {state?.sell_mode === "Online" && state?.qty !== 0 ? (
+              {state?.sell_mode === "Offline" ? (
+                <div className="pro-details-quality">
+                  <div className="pro-details-cart btn-hover">
+                    <button>Available in Offline store</button>
+                  </div>
+                </div>
+              ) : state?.qty != 0 ? (
                 <div className="pro-details-quality">
                   <div className="cart-plus-minus">
                     <button
@@ -331,9 +335,6 @@ const ProductImageDescriptionSticky = ({
                 <div className="pro-details-quality">
                   <div className="pro-details-cart btn-hover">
                     <button>Out Of Stock</button>
-                  </div>
-                  <div className="pro-details-cart btn-hover">
-                    <button>Available on Offline store</button>
                   </div>
                 </div>
               )}

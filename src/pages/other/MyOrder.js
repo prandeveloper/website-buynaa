@@ -138,7 +138,7 @@ const MyOrder = ({
 
                                 <td className="product-price-cart">
                                   <span className="amount"></span>
-                                  {orders?.product_price}
+                                  {orders?.gsttotal}
                                 </td>
                                 <td className="product-price-cart">
                                   <span className="amount"></span>
@@ -148,76 +148,6 @@ const MyOrder = ({
                                   <span className="amount"></span>
                                   {moment(orders?.createdAt).format("ll")}
                                 </td>
-
-                                {/* <td className="product-wishlist-cart">
-                                  <div className="pro-details-cart btn-hover">
-                                    <Button
-                                      color="primary"
-                                      onClick={() => {
-                                        Axios.post(
-                                          "http://35.154.86.59/api/admin/add_ToCart",
-                                          {
-                                            product: orders.product._id,
-                                            product_qty: orders.qty,
-                                            product_price: orders.price,
-                                            color: orders.color,
-                                            size: orders.size,
-                                          },
-                                          {
-                                            headers: {
-                                              "auth-token":
-                                                localStorage.getItem(
-                                                  "auth-token"
-                                                ),
-                                            },
-                                          }
-                                        )
-                                          .then((response) => {
-                                            alert("Added To Cart");
-                                            console.log(response);
-                                            console.log(orders.product._id);
-                                            //pahucha dena
-                                            Axios.get(
-                                              `http://35.154.86.59/api/admin/delonewishlist/${orders.product._id}`,
-                                              {
-                                                headers: {
-                                                  "auth-token":
-                                                    localStorage.getItem(
-                                                      "auth-token"
-                                                    ),
-                                                },
-                                              }
-                                            )
-                                              .then((data) => fetchWish(data))
-                                              .catch((err) =>
-                                                console.log(err.response)
-                                              );
-                                          })
-                                          .catch(function (error) {
-                                            console.log(error.response);
-                                          });
-                                      }}
-                                    >
-                                      Add To Cart
-                                    </Button>
-                                  </div>
-                                </td> */}
-
-                                {/* <td className="product-remove">
-                                  <button
-                                    onClick={(e) =>
-                                      //console.log(orders._id)
-                                      removeitemfromwishlist(
-                                        orders.product._id
-                                      )(
-                                        //  deleteFromWishlist(orders, addToast)
-                                        window.location.reload(false)
-                                      )
-                                    }
-                                  >
-                                    <i className="fa fa-times"></i>
-                                  </button>
-                                </td> */}
                               </tr>
                             );
                           })}
